@@ -140,5 +140,5 @@ ENV ENABLED_LANGS="${PREVIEW_LANGS}"
 #CMD ["bundle","install","--user" ,"--system"]
 CMD ["bundle","install","--verbose"]
 #CMD ["bundle", "exec", "jekyll", "build", "--profile"]
-CMD ["bundle", "exec","jekyll", "serve","--incremental","-H", "0.0.0.0", "-P", "4000","--verbose"]
+CMD ["bundle", "exec","jekyll", "serve","--incremental","-H", "0.0.0.0", "-P", "4000","--verbose", "--trace"]
 
