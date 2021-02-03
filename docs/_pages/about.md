@@ -28,11 +28,6 @@ git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~
 
 cd org-builder
 
-make image
-make server
-
-OR
-
 SITE=~/Bitcoin.org make image
 SITE=~/Bitcoin.org make server
 ```
@@ -41,4 +36,4 @@ SITE=~/Bitcoin.org make server
 
 ## License
 
-Distributed under the [MIT License](https://raw.githubusercontent.com/RandyMcMillan/pages-gem/master/LICENSE){: .btn .btn--primary}.
+Distributed under the [MIT License](https://raw.githubusercontent.com/bitcoincore-dev/org-builder/master/LICENSE){: .btn .btn--primary}.
