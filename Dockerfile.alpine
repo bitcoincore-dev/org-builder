@@ -81,6 +81,7 @@ RUN gem install nokogiri:1.11.1
 RUN gem install rexml:3.2.4
 RUN gem install mini_portile2:2.5.0
 RUN gem install rb-fsevent:0.10.4
+RUN gem install nokogiri:1.10.4
 #RUN gem install 
 #RUN gem install 
 #RUN gem install 
@@ -101,6 +102,8 @@ RUN apk update && apk add --no-cache --virtual .build_deps \
     build-base && \
     bundle config local.github-pages /src/gh/pages-gem && \
     curl https://raw.githubusercontent.com/bitcoin-dot-org/Bitcoin.org/master/Gemfile -o bitcoin.org.gemfile && \
+    curl https://raw.githubusercontent.com/bitcoincore-dev/org-builder/master/Gemfile -o org-builder.gemfile && \
+    bundle install --gemfile=org-builder.gemfile && \
     bundle install --gemfile=bitcoin.org.gemfile && \
     bundle install --gemfile=/src/gh/pages-gem/Gemfile
 
