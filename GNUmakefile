@@ -24,7 +24,7 @@ image_alpine:
 # OR
 # SITE=~/Bitcoin.org make server
 # SITE=~/Bitcoin.org make shell
-shell:
+shell: image
 	${DOCKER} run --rm -it \
 		-p 4000:4000 \
 		-u `id -u`:`id -g` \
