@@ -31,8 +31,13 @@ RUN apk add --update ruby-nokogiri
 ##$(curl https://raw.githubusercontent.com/${YOUR_FORK}/${YOUR_REPO}/master/.ruby-version)
 
 RUN gem update --system
-RUN gem install bundler
+RUN gem install bundler -v 1.17.3
+RUN gem install bundler -v 2.1.4
 RUN gem update bundler
+
+RUN curl https://raw.githubusercontent.com/bitcoin-dot-org/Bitcoin.org/master/Gemfile -o bitcoin.org.gemfile
+
+RUN bundle install --gemfile=bitcoin.org.gemfile
 
 RUN echo 'gem: --no-document' >> .gemrc
 RUN echo 'verbose:   false'   >> .gemrc
@@ -81,8 +86,8 @@ RUN gem install therubyracer:0.12.3
 RUN gem install ethon:0.12.0
 RUN gem install nokogiri:1.11.1
 RUN gem install rexml:3.2.4
-#RUN gem install 
-#RUN gem install 
+RUN gem install mini_portile2:2.5.0
+RUN gem install rb-fsevent:0.10.4
 #RUN gem install 
 #RUN gem install 
 #RUN gem install 
@@ -114,6 +119,8 @@ RUN apk update && apk add --no-cache --virtual .build_deps \
     make \
     build-base && \
     bundle config local.github-pages /src/gh/pages-gem && \
+    curl https://raw.githubusercontent.com/bitcoin-dot-org/Bitcoin.org/master/Gemfile -o bitcoin.org.gemfile && \
+    bundle install --gemfile=bitcoin.org.gemfile && \
     bundle install --gemfile=/src/gh/pages-gem/Gemfile
 
 RUN rm -rf /usr/lib/ruby/gems/*/cache/*.gem
