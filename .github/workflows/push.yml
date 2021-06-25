@@ -63,12 +63,11 @@ jobs:
           SITE=~/Bitcoin.org make image
           #SITE=~/Bitcoin.org make server
 
-  ubuntu18-docker-shell:
+  ubuntu18-make-image:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - name: Make
         run: |
-          make shell
-          #SITE=~/Bitcoin.org make server
+          make image
 
