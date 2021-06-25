@@ -30,6 +30,10 @@ RUN apk add --update ruby-nokogiri
 ##RUN cd ruby-install-0.8.1/ && make && make install && ruby-install ruby \
 ##$(curl https://raw.githubusercontent.com/${YOUR_FORK}/${YOUR_REPO}/master/.ruby-version)
 
+RUN gem update --system
+RUN gem install bundler
+RUN gem update bundler
+
 RUN echo 'gem: --no-document' >> .gemrc
 RUN echo 'verbose:   false'   >> .gemrc
 RUN echo 'benchmark: false'   >> .gemrc
@@ -37,8 +41,6 @@ RUN echo 'backtrace: true'    >> .gemrc
 RUN bundle config --global jobs `expr $(nproc) - 1`
 
 ## These are installed in a specific order ************************************
-RUN update --system
-RUN bundle update --bundler
 RUN gem install rake:13.0.1
 RUN gem install RedCloth:4.3.2
 RUN gem install public_suffix:4.0.5
