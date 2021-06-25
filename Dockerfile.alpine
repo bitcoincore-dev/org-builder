@@ -24,19 +24,12 @@ libffi-dev nodejs ruby-io-console ruby-irb ruby-json ruby-rake ruby-dev build-ba
 RUN apk add --no-cache build-base
 RUN apk add --update ruby-nokogiri
 
-##RUN echo install ruby-install
-##RUN wget -O ruby-install-0.8.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.8.1.tar.gz
-##RUN tar -xzvf ruby-install-0.8.1.tar.gz
-##RUN cd ruby-install-0.8.1/ && make && make install && ruby-install ruby \
-##$(curl https://raw.githubusercontent.com/${YOUR_FORK}/${YOUR_REPO}/master/.ruby-version)
-
 RUN gem update --system
 RUN gem install bundler -v 1.17.3
 RUN gem install bundler -v 2.1.4
 RUN gem update bundler
 
 RUN curl https://raw.githubusercontent.com/bitcoin-dot-org/Bitcoin.org/master/Gemfile -o bitcoin.org.gemfile
-
 RUN bundle install --gemfile=bitcoin.org.gemfile
 
 RUN echo 'gem: --no-document' >> .gemrc
@@ -45,7 +38,7 @@ RUN echo 'benchmark: false'   >> .gemrc
 RUN echo 'backtrace: true'    >> .gemrc
 RUN bundle config --global jobs `expr $(nproc) - 1`
 
-## These are installed in a specific order ************************************
+## These are installed in a specific order
 RUN gem install rake:13.0.1
 RUN gem install RedCloth:4.3.2
 RUN gem install public_suffix:4.0.5
@@ -93,24 +86,12 @@ RUN gem install rb-fsevent:0.10.4
 #RUN gem install 
 #RUN gem install 
 #RUN gem install 
+## These were installed in a specific order ************************************
+
 RUN bundle config list
-## These are installed in a specific order ************************************
 
-
-RUN echo **********************************************************************
-RUN echo END INSTALL
-RUN echo **********************************************************************
-RUN echo **********************************************************************
-RUN echo END BASE
-RUN echo **********************************************************************
 FROM base as copy
-RUN echo **********************************************************************
-RUN echo BEGIN COPY
-RUN echo **********************************************************************
 COPY . /src/gh/pages-gem
-RUN echo **********************************************************************
-RUN echo END COPY
-RUN echo **********************************************************************
 FROM copy as bundle
 
 RUN bundle install --gemfile=/src/gh/pages-gem/Gemfile
