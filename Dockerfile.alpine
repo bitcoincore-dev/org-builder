@@ -37,6 +37,8 @@ RUN echo 'backtrace: true'    >> .gemrc
 RUN bundle config --global jobs `expr $(nproc) - 1`
 
 ## These are installed in a specific order ************************************
+RUN update --system
+RUN bundle update --bundler
 RUN gem install rake:13.0.1
 RUN gem install RedCloth:4.3.2
 RUN gem install public_suffix:4.0.5
