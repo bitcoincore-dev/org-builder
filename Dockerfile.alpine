@@ -74,9 +74,9 @@ RUN gem install less:2.4.0
 RUN gem install libv8:3.16.14.19
 RUN gem install ref:2.0.0
 RUN gem install therubyracer:0.12.3
-#RUN gem install 
-#RUN gem install 
-#RUN gem install 
+RUN gem install ethon:0.12.0
+RUN gem install nokogiri:1.11.1
+RUN gem install rexml:3.2.4
 #RUN gem install 
 #RUN gem install 
 #RUN gem install 
