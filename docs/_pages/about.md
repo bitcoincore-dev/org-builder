@@ -23,8 +23,8 @@ Install [make](https://www.gnu.org/software/make/)
 **then**
 
 ```
-git clone https://github.com/bitcoincore-dev/org-builder.git ~
-git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~
+git clone https://github.com/bitcoincore-dev/org-builder.git ~/org-builder
+git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/Bitcoin.org
 
 cd org-builder
 
