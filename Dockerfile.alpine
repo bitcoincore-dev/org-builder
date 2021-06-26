@@ -137,7 +137,10 @@ RUN apk update && apk add --no-cache --virtual .build_deps \
     bundle config local.github-pages /src/gh/pages-gem && \
     curl https://raw.githubusercontent.com/bitcoin-dot-org/Bitcoin.org/master/Gemfile -o bitcoin.org.gemfile && \
     curl https://raw.githubusercontent.com/bitcoincore-dev/org-builder/master/Gemfile -o org-builder.gemfile && \
+    curl https://raw.githubusercontent.com/bitcoincore-dev/org-builder/master/Gemfile -o org-builder.gemfile && \
+    curl https://raw.githubusercontent.com/bitcoincore-dev/org-builder/master/docs/Gemfile -o org-builder.docs.gemfile && \
     bundle install --gemfile=org-builder.gemfile && \
+    bundle install --gemfile=org-builder.docs.gemfile && \
     bundle install --gemfile=bitcoin.org.gemfile && \
     bundle install --gemfile=/src/gh/pages-gem/Gemfile
 

@@ -22,17 +22,13 @@ Install [make](https://www.gnu.org/software/make/)
 then
 
 ```
-git clone https://github.com/bitcoincore-dev/org-builder.git
+git clone https://github.com/bitcoincore-dev/org-builder.git ~/org-builder
+git clone https://github.com/bitcoincore-dev/Bitcoin.org.git ~/Bitcoin.org
 cd org-builder
 
 make image
-make server
-OR
-SITE=. make image
-SITE=. make server
-OR
-SITE=<path_to_jekyll_project> make image
-SITE=<path_to_jekyll_project> make server
+make server port=4444
+SITE=~/Bitcoin.org make server port=1234
 ```
 
 ## License
