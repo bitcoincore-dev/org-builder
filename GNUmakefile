@@ -1,15 +1,11 @@
 PWD 									?= pwd_unknown
 
-
 ifeq ($(alpine),)
 ALPINE_VERSION							:= 3.11.6
 else
 ALPINE_VERSION							:= $(alpine)
 endif
 export ALPINE_VERSION
-
-
-
 
 #GIT CONFIG
 GIT_USER_NAME							:= $(shell git config user.name)
@@ -31,7 +27,6 @@ export GIT_REPO_NAME
 GIT_REPO_PATH							:= $(HOME)/$(GIT_REPO_NAME)
 export GIT_REPO_PATH
 
-
 ifeq ($(nocache),true)
 NOCACHE								:= --no-cache
 else
@@ -45,7 +40,6 @@ else
 VERBOSE									:=	
 endif
 export VERBOSE
-
 
 #TODO more umbrel config testing
 ifeq ($(port),)
@@ -85,11 +79,11 @@ report:
 	@echo '        - VERBOSE=${VERBOSE}'
 	@echo '        - PUBLIC_PORT=${PUBLIC_PORT}'
 
-
 DOCKER=docker
 export DOCKER
+
 ifeq ($(SITE),)
-    SITE       :=  $(HOME)/$(notdir $(PWD))
+    SITE       :=  $(PWD)
     TAG        := org-builder
 else
     SITE       := $(SITE)
@@ -119,7 +113,7 @@ image_alpine:
 .PHONY: shell
 shell: report image
 	${DOCKER} run --rm -it \
-		-p 4000:4000 \
+		-p ${PUBLIC_PORT}:4000 \
 		-u `id -u`:`id -g` \
 		-v ${PWD}/docs:/src/gh/pages-gem \
 		-v `realpath ${SITE}`:/src/site \
@@ -134,7 +128,7 @@ server: report image
 	test -d "${SITE}" || \
 		(echo -E "specify SITE e.g.: SITE=/path/to/site make server"; exit 1) && \
 	${DOCKER} run --rm -it \
-		-p 4000:4000 \
+		-p ${PUBLIC_PORT}:4000 \
 		-u `id -u`:`id -g` \
 		-v ${PWD}/docs:/src/gh/pages-gem \
 		-v `realpath ${SITE}`:/src/site \
