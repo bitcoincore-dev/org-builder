@@ -13,8 +13,7 @@ title: "bitcoincore-dev"
 
 ## Building environment for jekyll projects
 
-[![Build Status](https://travis-ci.org/bitcoincore-dev/org-builder.svg?branch=master)](https://travis-ci.org/bitcoincore-dev/org-builder)
-
+[![CI](https://github.com/bitcoincore-dev/org-builder/actions/workflows/push.yml/badge.svg)](https://github.com/bitcoincore-dev/org-builder/actions/workflows/push.yml)
 
 Install [docker](https://docs.docker.com/get-docker/)	
 Install [make](https://www.gnu.org/software/make/)
