@@ -6,7 +6,7 @@ name: ubuntu-18.04-host-curl
 on:
   push:
     paths:
-      - '.github/workflows/u18-host-curl.yml'
+      - '.github/workflows/ubuntu-18-host-curl.yml'
       - '.github/workflows/install*'
         
     branches:       #[ master ]

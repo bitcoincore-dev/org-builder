@@ -8,7 +8,7 @@ on:
   push:
     paths:
       #test
-      - '.github/workflows/u18-host.yml'
+      - '.github/workflows/ubuntu-18-host.yml'
 
     branches:       #[ master ]
       - '*'         # matches every branch that doesn't contain a '/'

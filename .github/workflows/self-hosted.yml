@@ -1,10 +1,15 @@
 # This is a basic workflow to help you get started with Actions
-name: CI
+name: Self Hosted Workflow
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
+    paths:
+      - '.github/workflows/self-hosted.yml'
+      - 'GNUmakefile'
+      - 'Dockerfile.alpine'
+
     branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -12,61 +17,30 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  #
-  #
-  #    name: "GitHub Pages Tests"
-  #    runs-on: ubuntu-latest
-  #    strategy:
-  #      matrix:
-  #        ruby:
-  #          - 2.5
-  #          - 2.6
-  #    steps:
-  #    - uses: actions/checkout@master
-  #    - name: script/cibuild-docker
-  #      run: script/cibuild-docker
-  #      env:
-  #        RUBY_VERSION: ${{ matrix.ruby }}
-  #
-  #
-## Docker Configs
 
-  ubuntu-latest-docker:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v2
-      - name: Make
-        run: |
-          git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/${{ github.workspace }}/Bitcoin.org
-          SITE=~/${{ github.workspace }}/Bitcoin.org make image
-          SITE=~/${{ github.workspace }}/Bitcoin.org make server
-
-  ubuntu20-docker:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v2
-      - name: Make
-        run: |
-          git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/${{ github.workspace }}/Bitcoin.org
-          SITE=~/${{ github.workspace }}/Bitcoin.org make image
-          SITE=~/${{ github.workspace }}/Bitcoin.org make server
-
-  ubuntu18-docker:
+  ubuntu18-docker-self:
     runs-on: self-hosted
 
     steps:
+      - uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
       - uses: actions/checkout@v2
       - name: Make
         run: |
-          git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/${{ github.workspace }}/Bitcoin.org
-          SITE=~/${{ github.workspace }}/Bitcoin.org make image
-          SITE=~/${{ github.workspace }}/Bitcoin.org make server
+          #[[ -d ~/Bitcoin.org ]] && echo "~/Bitcoin.org exists!!!" || git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/Bitcoin.org
+          cd ~/org-builder
+          SITE=~/Bitcoin.org make image
 
-  ubuntu18-make-image:
+  ubuntu18-make-image-self:
     runs-on: self-hosted
     steps:
+      - uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
       - uses: actions/checkout@v2
       - name: Make
         run: |
-          make image port=4444
+          cd ~/org-builder
+          make image port=1234
 
