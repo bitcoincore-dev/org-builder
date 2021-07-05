@@ -1,4 +1,13 @@
+SHELL := /bin/bash
+
 PWD 									?= pwd_unknown
+
+THIS_FILE								:= $(lastword $(MAKEFILE_LIST))
+export THIS_FILE
+TIME									:= $(shell date +%s)
+export TIME
+
+
 
 ifeq ($(alpine),)
 ALPINE_VERSION							:= 3.11.6
@@ -92,10 +101,6 @@ endif
     export     SITE
     export     TAG
 
-
-
-
-
 # Build the docker image or create your own Dockerfile
 .PHONY: image
 image:report image_alpine
@@ -110,6 +115,13 @@ image_alpine:
 # OR
 # SITE=~/Bitcoin.org make server
 # SITE=~/Bitcoin.org make shell
+.PHONY: push
+push:
+	touch TIME
+	echo $(TIME) > TIME
+	git add -f TIME
+	git commit --amend -m "make push at $(TIME)"
+
 .PHONY: shell
 shell: report image
 	${DOCKER} run --rm -it \
@@ -145,5 +157,17 @@ clean:
 	&& echo 'Image(2) for "$(TAG)" removed.' \
 	|| echo 'Image(3) for "$(TAG)" already removed.'
 #######################
+#######################
+.PHONY: prune
+prune:
+	@echo 'prune'
+	docker system prune -af
+#######################
+.PHONY: prune-network
+prune-network:
+	@echo 'prune-network'
+	docker network prune -f
+#######################
+
 -include Makefile
 

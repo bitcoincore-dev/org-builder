@@ -28,9 +28,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Make
         run: |
-          #[[ -d ~/Bitcoin.org ]] && echo "~/Bitcoin.org exists!!!" || git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/Bitcoin.org
-          cd ~/org-builder
-          SITE=~/Bitcoin.org make image
+          sudo apt -y install make docker.io
+          [[ -d ~/Bitcoin.org ]] && echo "~/Bitcoin.org exists!!!" || git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/Bitcoin.org
+          sudo SITE=~/Bitcoin.org make image
 
   ubuntu18-make-image-self:
     runs-on: self-hosted
@@ -41,6 +41,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Make
         run: |
-          cd ~/org-builder
-          make image port=1234
+          sudo apt -y install make docker.io
+          sudo make image port=1234
 
