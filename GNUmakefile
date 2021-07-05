@@ -121,6 +121,7 @@ push:
 	echo $(TIME) > TIME
 	git add -f TIME
 	git commit --amend -m "make push at $(TIME)"
+	git push -f origin master
 
 .PHONY: shell
 shell: report image

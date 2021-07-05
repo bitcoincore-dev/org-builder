@@ -5,10 +5,10 @@ name: Self Hosted Workflow
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    paths:
-      - '.github/workflows/self-hosted.yml'
-      - 'GNUmakefile'
-      - 'Dockerfile.alpine'
+    #paths:
+    #  - '.github/workflows/self-hosted.yml'
+    #  - 'GNUmakefile'
+    #  - 'Dockerfile.alpine'
 
     branches: [ master ]
 
@@ -18,29 +18,45 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  ubuntu18-docker-self:
+  self-hosted1:
     runs-on: self-hosted
-
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
       - uses: actions/checkout@v2
-      - name: Make
+      - name: self-hosted1
         run: |
-          sudo apt -y install make docker.io
-          [[ -d ~/Bitcoin.org ]] && echo "~/Bitcoin.org exists!!!" || git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/Bitcoin.org
+          echo ${{ runner.os }}
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            sudo apt -y install make docker.io
+          [[ -d ~/Bitcoin.org ]] && echo "~/Bitcoin.org exists!!!" || \
+          git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/Bitcoin.org
           sudo SITE=~/Bitcoin.org make image
+          fi
+          if [[ "${{ runner.os }}" == "macOS" ]]; then
+            brew install  make docker
+          [[ -d ~/Bitcoin.org ]] && echo "~/Bitcoin.org exists!!!" || \
+          git clone https://github.com/bitcoin-dot-org/Bitcoin.org.git ~/Bitcoin.org
+              SITE=~/Bitcoin.org make image
+          fi
 
-  ubuntu18-make-image-self:
+  self-hosted2:
     runs-on: self-hosted
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
       - uses: actions/checkout@v2
-      - name: Make
+      - name: self-hosted2
         run: |
-          sudo apt -y install make docker.io
-          sudo make image port=1234
+          echo ${{ runner.os }}
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            sudo apt -y install make docker.io
+            sudo make image port=1234
+          fi
+          if [[ "${{ runner.os }}" == "macOS" ]]; then
+            brew install make docker
+            make image port=1234
+          fi
 
